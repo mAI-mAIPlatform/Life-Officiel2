@@ -124,13 +124,13 @@ class HUD {
     }
 
     _updateAmmo(clip, reserve) {
-        if (this.elAmmoClip) this.elAmmoClip.textContent = clip;
-        if (this.elAmmoTotal) this.elAmmoTotal.textContent = reserve;
-
-        if (clip <= 3) {
-            this.elAmmoClip.classList.add('text-red-500');
-        } else {
-            this.elAmmoClip.classList.remove('text-red-500');
+        if (this.elAmmo) {
+            this.elAmmo.textContent = `${clip} / ${reserve}`;
+            if (clip <= 3) {
+                this.elAmmo.classList.add('text-neo-red');
+            } else {
+                this.elAmmo.classList.remove('text-neo-red');
+            }
         }
     }
 

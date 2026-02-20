@@ -15,8 +15,8 @@
         rel="stylesheet">
 
     <title>LIFE RPG - NeoCity | mCompany</title>
-  <script type="module" crossorigin src="./assets/js/main-m_cmHvcM.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/js/vendor-three-sNjzZa5f.js">
+  <script type="module" crossorigin src="./assets/js/main-Czth5Jju.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/js/vendor-three-Cep9zy2e.js">
   <link rel="modulepreload" crossorigin href="./assets/js/vendor-physics-CdkmP8gd.js">
   <link rel="stylesheet" crossorigin href="./assets/css/main-CsPJbply.css">
 </head>
@@ -107,6 +107,31 @@
 
     </div><!-- /ui-layer -->
 
+    <!-- Script de debug global au cas où le module plante -->
+    <script>
+        window.addEventListener('error', function (event) {
+            const statusText = document.getElementById('boot-status-text');
+            const progressFill = document.getElementById('boot-progress-fill');
+            if (statusText) statusText.innerHTML = '<span style="color:red">❌ Erreur CRITIQUE : ' + event.message + '</span>';
+            if (progressFill) {
+                progressFill.style.width = '100%';
+                progressFill.style.backgroundColor = '#ff0000';
+            }
+            console.error("Global Error Caught:", event.error || event.message);
+        });
+        window.addEventListener('unhandledrejection', function (event) {
+            const statusText = document.getElementById('boot-status-text');
+            const progressFill = document.getElementById('boot-progress-fill');
+            const reason = event.reason ? (event.reason.message || event.reason) : 'Promesse Rejetée';
+            if (statusText) statusText.innerHTML = '<span style="color:red">❌ Erreur Promise : ' + reason + '</span>';
+            if (progressFill) {
+                progressFill.style.width = '100%';
+                progressFill.style.backgroundColor = '#ff0000';
+            }
+            console.error("Unhandled Rejection:", event.reason);
+        });
+    </script>
+    
     <!-- Module principal du jeu — Vite le résoudra depuis node_modules -->
 
 </body>
