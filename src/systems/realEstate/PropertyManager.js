@@ -1,6 +1,7 @@
 import { Events } from '../../utils/Events.js';
 import { Player } from '../../entities/player/Player.js';
-import PropertiesDB from '../../data/properties.json' with { type: 'json' };
+let PropertiesDB = [];
+fetch('/src/data/properties.json').then(r => r.json()).then(data => { PropertiesDB = data; }).catch(() => { });
 
 /**
  * LIFE RPG - Property Manager

@@ -44,54 +44,60 @@ class GameCore {
 
         try {
 
-            // ──── ÉTAPE 1 : Chargement des Assets ────────────────────────
-            this._setProgress(5, 'Chargement des assets...');
-            if (typeof AssetLoader.init === 'function') await AssetLoader.init();
-            try {
-                await AssetLoader.preloadRegistryAssets();
-            } catch (e) {
-                Logger.warn('AssetLoader', 'Erreurs de préchargement (placeholders GLTF ignorés).');
-            }
-
-            // ──── ÉTAPE 2 : Moteur 3D ─────────────────────────────────────
-            this._setProgress(20, 'Initialisation du moteur 3D...');
+            // ──── ÉTAPE 1 : Moteur 3D ─────────────────────────────────────
+            this._setProgress(15, 'Initialisation du moteur 3D...');
+            await this._delay(50); // Laisse le DOM se mettre à jour
             Engine.init('game-canvas-container');
             if (!Engine.isInitialized) {
                 throw new Error('Échec critique : moteur WebGL non initialisé.');
             }
 
-            // ──── ÉTAPE 3 : Physique & Inputs ────────────────────────────
-            this._setProgress(35, 'Initialisation physique et inputs...');
+            // ──── ÉTAPE 2 : Physique & Inputs ────────────────────────────
+            this._setProgress(30, 'Initialisation physique et inputs...');
+            await this._delay(30);
             Physics.init();
             Input.init('game-canvas-container');
             TimeManager.init();
-            CameraSystem.init(Engine.camera);
+            CameraSystem.init();
 
-            // ──── ÉTAPE 4 : Sauvegarde ───────────────────────────────────
-            this._setProgress(50, 'Chargement du système de sauvegarde...');
-            await SaveSystem.init();
+            // ──── ÉTAPE 3 : Sauvegarde ───────────────────────────────────
+            this._setProgress(45, 'Chargement du système de sauvegarde...');
+            await this._delay(30);
+            try {
+                await SaveSystem.init();
+            } catch (saveErr) {
+                Logger.warn('SaveSystem', 'Système de sauvegarde ignoré (erreur non bloquante):', saveErr);
+            }
 
-            // ──── ÉTAPE 5 : UI ───────────────────────────────────────────
-            this._setProgress(60, 'Initialisation de l\'interface...');
+            // ──── ÉTAPE 4 : UI ───────────────────────────────────────────
+            this._setProgress(60, "Initialisation de l'interface...");
+            await this._delay(30);
             UIManager.init();
 
-            // ──── ÉTAPE 6 : World & Entités ──────────────────────────────
-            this._setProgress(70, 'Génération du monde...');
-            WorldManager.init();
-            CrowdManager.init();
-            TrafficAI.init();
+            // ──── ÉTAPE 5 : World & Entités ──────────────────────────────
+            this._setProgress(72, 'Génération du monde...');
+            await this._delay(30);
+            try {
+                WorldManager.init();
+            } catch (worldErr) {
+                Logger.warn('World', 'Erreur non bloquante WorldManager:', worldErr);
+            }
+            try { CrowdManager.init(); } catch (e) { Logger.warn('Crowd', e); }
+            try { TrafficAI.init(); } catch (e) { Logger.warn('Traffic', e); }
 
-            // ──── ÉTAPE 7 : Systèmes de jeu ──────────────────────────────
+            // ──── ÉTAPE 6 : Systèmes de jeu ──────────────────────────────
             this._setProgress(85, 'Initialisation des systèmes...');
-            JobManager.init();
-            MarketManager.init();
-            CryptoSystem.init();
-            Bank.init();
-            CombatManager.init();
-            HealthSystem.init();
+            await this._delay(30);
+            try { JobManager.init(); } catch (e) { Logger.warn('Jobs', e); }
+            try { MarketManager.init(); } catch (e) { Logger.warn('Market', e); }
+            try { CryptoSystem.init(); } catch (e) { Logger.warn('Crypto', e); }
+            try { Bank.init(); } catch (e) { Logger.warn('Bank', e); }
+            try { CombatManager.init(); } catch (e) { Logger.warn('Combat', e); }
+            try { HealthSystem.init(); } catch (e) { Logger.warn('Health', e); }
 
-            // ──── ÉTAPE 8 : Events & Game Loop ───────────────────────────
+            // ──── ÉTAPE 7 : Events & Game Loop ───────────────────────────
             this._setProgress(95, 'Lancement de la boucle principale...');
+            await this._delay(30);
             this._setupGlobalEvents();
 
             // Enregistre la fonction d'update principale dans la GameLoop
@@ -99,6 +105,11 @@ class GameCore {
             // Enregistre la fonction de rendu
             GameLoop.addRender(this._render.bind(this), 100);
             GameLoop.start();
+
+            // ──── ÉTAPE 8 : Chargement Assets (non-bloquant, en arrière-plan) ─
+            if (typeof AssetLoader.init === 'function') {
+                try { await AssetLoader.init(); } catch (e) { }
+            }
 
             this.isReady = true;
             this._setProgress(100, 'Prêt !');
@@ -115,8 +126,12 @@ class GameCore {
         } catch (error) {
             Logger.fatal('LIFE', 'Erreur critique lors du boot', error);
             this._setProgress(0, `❌ Erreur : ${error.message}`);
+            // Affiche l'erreur dans l'UI et masque quand même le boot screen après 5s
+            await this._delay(5000);
+            this._hideBootScreen();
         }
     }
+
 
     /**
      * Démarre le gameplay après le boot

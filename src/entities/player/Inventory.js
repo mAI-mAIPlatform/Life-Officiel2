@@ -1,5 +1,6 @@
 import { Events } from '../../utils/Events.js';
-import ItemsDB from '../../data/items.json' with { type: 'json' };
+let ItemsDB = [];
+fetch('/src/data/items.json').then(r => r.json()).then(data => { ItemsDB = data; }).catch(() => { });
 
 export class Inventory {
     constructor() {

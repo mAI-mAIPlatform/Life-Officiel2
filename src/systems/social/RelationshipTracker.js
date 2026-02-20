@@ -1,5 +1,6 @@
 import { Events } from '../../utils/Events.js';
-import DialogueDB from '../../data/dialogue_trees.json' with { type: 'json' };
+let DialogueDB = {};
+fetch('/src/data/dialogue_trees.json').then(r => r.json()).then(data => { DialogueDB = data; }).catch(() => { });
 
 /**
  * LIFE RPG - Relationship Tracker

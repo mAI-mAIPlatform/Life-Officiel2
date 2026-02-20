@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import * as CANNON from 'cannon-es';
 import { Engine } from '../core/Engine.js';
 import { Physics } from '../core/Physics.js';
 import { WorldConfig } from '../utils/Constants.js';
@@ -18,8 +19,8 @@ class WorldSystem {
         // Chunk Management (Streaming)
         this.chunks = new Map(); // id -> ChunkObject
         this.currentChunkId = null;
-        this.renderDistance = WorldConfig.RENDER_DISTANCE;
-        this.chunkSize = WorldConfig.CHUNK_SIZE;
+        this.renderDistance = WorldConfig.CHUNKS.VIEW_DISTANCE;
+        this.chunkSize = WorldConfig.CHUNKS.SIZE;
 
         // Environment
         this.skyMaterial = null;
@@ -101,12 +102,12 @@ class WorldSystem {
         this.worldGroup.add(ground);
 
         // Sol physique invisible mais solide pour tout le monde
-        const shape = new Physics.cannon.Plane();
-        const body = new Physics.cannon.Body({ mass: 0 }); // Statique
-        body.addShape(shape);
+        const groundShape = new CANNON.Plane();
+        const groundBody = new CANNON.Body({ mass: 0 }); // Statique
+        groundBody.addShape(groundShape);
         // Cannon.js plane pointe vers Z par défaut, il faut le tourner
-        body.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
-        Physics.world.addBody(body);
+        groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+        Physics.world.addBody(groundBody);
     }
 
     /**

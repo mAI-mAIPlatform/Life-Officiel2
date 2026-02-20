@@ -1,5 +1,7 @@
 import { Events } from '../../utils/Events.js';
-import ItemsDB from '../../data/items.json' with { type: 'json' };
+// Chargement JSON via fetch pour compatibilité universelle (import assertions non supportées partout)
+let ItemsDB = [];
+fetch('/src/data/items.json').then(r => r.json()).then(data => { ItemsDB = data; }).catch(() => { });
 
 /**
  * LIFE RPG - Global Economy Market
