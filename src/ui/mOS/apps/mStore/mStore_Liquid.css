@@ -1,0 +1,159 @@
+/* mStore_Liquid.css */
+/* Advanced UI Aesthetics: Liquid Glass & Cyber-Realism */
+
+:root {
+    --glass-bg: rgba(20, 25, 35, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-accent: #00ffcc;
+    --text-primary: #ffffff;
+    --text-dim: #a0a5b0;
+}
+
+.layer-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 12px;
+}
+
+.mStore-app-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+}
+
+.mStore-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.mStore-header h2 {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.mStore-balance {
+    font-weight: 600;
+    color: var(--neon-accent);
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+.mStore-categories {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.mStore-categories button {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.mStore-categories button:hover {
+    color: var(--text-primary);
+}
+
+.mStore-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-accent);
+}
+
+.product-icon {
+    font-size: 2rem;
+    color: var(--neon-accent);
+    margin-bottom: 1rem;
+}
+
+.product-card h4 {
+    margin: 0 0 0.5rem 0;
+    font-weight: 500;
+}
+
+.product-desc {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    flex: 1;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.price {
+    font-weight: 600;
+}
+
+.btn-buy {
+    background: var(--neon-accent);
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.1s;
+}
+
+.btn-buy:active {
+    transform: scale(0.95);
+}
+
+.btn-buy:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+}
+
+/* Scrollbar styling for that webkit edge */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}

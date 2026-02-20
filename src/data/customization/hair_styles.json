@@ -1,0 +1,37 @@
+{
+    "styles": [
+        {
+            "id": "hair_fade_cut",
+            "name": "Fade Cut",
+            "price": 50,
+            "variants": [
+                "black",
+                "neon_blue",
+                "bleached"
+            ],
+            "model": "hair_fade_cut.glb"
+        },
+        {
+            "id": "hair_neon_braids",
+            "name": "Neon Braids",
+            "price": 120,
+            "variants": [
+                "pink",
+                "green",
+                "cyan"
+            ],
+            "model": "hair_neon_braids.glb"
+        },
+        {
+            "id": "hair_undercut_cyber",
+            "name": "Cyber Undercut",
+            "price": 150,
+            "variants": [
+                "silver",
+                "gold",
+                "carbon"
+            ],
+            "model": "hair_undercut_cyber.glb"
+        }
+    ]
+}

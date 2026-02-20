@@ -269,12 +269,26 @@ class GameCore {
     }
 }
 
-// Lancement au chargement du module
-const Game = new GameCore();
-Game.boot();
+// Export for dev debugging
+let GameInstance = null;
 
-// Exposer pour le debugging en console navigateur (dev uniquement)
-if (import.meta.env.DEV) {
-    window.__LIFE__ = Game;
-    window.__THREE__ = THREE;
+try {
+    // Lancement au chargement du module
+    GameInstance = new GameCore();
+    GameInstance.boot().catch(e => {
+        const status = document.getElementById('boot-status-text');
+        if (status) status.innerHTML = '<span style="color:red">❌ Promise Rejetée (boot) : ' + e.message + '</span>';
+        console.error("Boot Promise Rejected:", e);
+    });
+
+    // Exposer pour le debugging en console navigateur (dev uniquement)
+    if (typeof window !== 'undefined') {
+        window.__LIFE__ = GameInstance;
+        window.__THREE__ = THREE;
+    }
+
+} catch (e) {
+    console.error("Erreur fatale à l'instanciation de GameCore :", e);
+    const status = document.getElementById('boot-status-text');
+    if (status) status.innerHTML = '<span style="color:red">❌ Erreur Init Module : ' + e.message + '</span>';
 }

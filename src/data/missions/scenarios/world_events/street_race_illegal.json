@@ -1,0 +1,34 @@
+{
+    "id": "we_002",
+    "title": "Course Illégale de Rue",
+    "type": "world_event",
+    "description": "Le gang des Drifters organise une course sauvage en périphérie. Frais d'entrée : 2000 C.",
+    "rewards": {
+        "credits": 8000,
+        "reputation": 200,
+        "items": [
+            "sports_car_mod"
+        ]
+    },
+    "objectives": [
+        {
+            "id": "obj_1",
+            "description": "Rejoignez la ligne de départ près de la station-service.",
+            "targetPos": {
+                "x": 820,
+                "y": 0,
+                "z": 920
+            },
+            "completed": false
+        },
+        {
+            "id": "obj_2",
+            "description": "Passez tous les checkpoints avant les adversaires.",
+            "action": "driving",
+            "checkpoints": 8,
+            "completed": false
+        }
+    ],
+    "mai_assistance": "Analyse tactique : Les Drifters utiliseront le boost nitro dans les lignes droites. Gardez le vôtre pour le dernier virage.",
+    "world_impact": "street_racing_rep_up"
+}

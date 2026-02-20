@@ -1,0 +1,35 @@
+{
+    "id": "ms_001",
+    "title": "Prologue : Arrivée à NeoCity",
+    "type": "main_story",
+    "description": "Vos premiers pas dans la mégalopole. Trouvez un terminal et inscrivez-vous au registre de la ville.",
+    "rewards": {
+        "credits": 500,
+        "reputation": 10,
+        "items": [
+            "basic_phone",
+            "civilian_clothes"
+        ]
+    },
+    "objectives": [
+        {
+            "id": "obj_1",
+            "description": "Rejoignez le terminal d'accès central.",
+            "targetPos": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "completed": false
+        },
+        {
+            "id": "obj_2",
+            "description": "Enregistrez votre empreinte biométrique.",
+            "action": "interact",
+            "targetId": "terminal_01",
+            "completed": false
+        }
+    ],
+    "mai_assistance": "Bienvenue à NeoCity. Je suis mAI, votre assistant virtuel intégré. Dirigez-vous vers le point de repère sur votre HUD. Ne traînez pas dans les ruelles.",
+    "world_impact": "player_registered_in_db"
+}

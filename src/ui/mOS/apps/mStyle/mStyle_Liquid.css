@@ -1,0 +1,76 @@
+.mstyle-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background: rgba(10, 15, 25, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+.mstyle-sidebar {
+  width: 250px;
+  background: rgba(0, 0, 0, 0.6);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+.mstyle-header {
+  padding: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #00f0ff, #ff003c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.mstyle-content {
+  flex: 1;
+  position: relative;
+}
+.mstyle-panels {
+  width: 300px;
+  background: rgba(0, 0, 0, 0.6);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+}
+.category-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+.category-btn:hover, .category-btn.active {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-left-color: #00f0ff;
+}
+.color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  margin: 5px;
+  transition: transform 0.2s ease;
+}
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+.color-swatch.selected {
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}

@@ -1,0 +1,36 @@
+{
+    "idle_poses": [
+        {
+            "id": "idle_cool",
+            "name": "Cool Worker",
+            "description": "Relaxed stance, leaning slightly.",
+            "file": "idle_cool.glb"
+        },
+        {
+            "id": "idle_aggressive",
+            "name": "Street Aggressive",
+            "description": "Fists clenched, ready for action.",
+            "file": "idle_aggressive.glb"
+        },
+        {
+            "id": "idle_corporate",
+            "name": "Corporate Elite",
+            "description": "Straight posture, hands behind back.",
+            "file": "idle_corporate.glb"
+        }
+    ],
+    "walk_cycles": [
+        {
+            "id": "walk_swagger",
+            "name": "Swagger Walk",
+            "description": "Confident, slow-paced street walk.",
+            "file": "walk_swagger.glb"
+        },
+        {
+            "id": "walk_tactical",
+            "name": "Tactical Walk",
+            "description": "Low profile, weapon ready.",
+            "file": "walk_tactical.glb"
+        }
+    ]
+}

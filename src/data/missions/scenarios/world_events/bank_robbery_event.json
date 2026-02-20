@@ -1,0 +1,31 @@
+{
+    "id": "we_001",
+    "title": "Braquage de Banque en Cours",
+    "type": "world_event",
+    "description": "Un gang lourdement armé attaque la Banque Centrale. La NCPD demande du renfort.",
+    "rewards": {
+        "credits": 10000,
+        "reputation": 150
+    },
+    "objectives": [
+        {
+            "id": "obj_1",
+            "description": "Sécurisez le périmètre extérieur.",
+            "targetPos": {
+                "x": 100,
+                "y": 0,
+                "z": -200
+            },
+            "completed": false
+        },
+        {
+            "id": "obj_2",
+            "description": "Neutralisez les braqueurs (0/4).",
+            "action": "combat",
+            "targetCount": 4,
+            "completed": false
+        }
+    ],
+    "mai_assistance": "Note: Si vous n'êtes pas policier, évitez la zone. Si vous l'êtes, c'est l'heure de gagner votre prime de risque.",
+    "world_impact": "bank_robbery_resolved"
+}

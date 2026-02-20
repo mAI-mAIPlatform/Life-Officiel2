@@ -1,0 +1,31 @@
+{
+    "storeId": "shop_food_organic",
+    "storeName": "Green Source Synthetics",
+    "type": "food_market",
+    "items": [
+        {
+            "id": "item_food_protein",
+            "name": "Synth-Protein Bar",
+            "type": "consumable",
+            "health_restore": 25,
+            "price": 150,
+            "description": "Quick energy boost during a chase."
+        },
+        {
+            "id": "item_food_water",
+            "name": "Purified H2O",
+            "type": "consumable",
+            "health_restore": 10,
+            "price": 50,
+            "description": "Slight hydration bonus."
+        },
+        {
+            "id": "item_food_steak",
+            "name": "Lab-Grown Ribeye",
+            "type": "consumable",
+            "health_restore": 80,
+            "price": 800,
+            "description": "Premium quality regeneration."
+        }
+    ]
+}

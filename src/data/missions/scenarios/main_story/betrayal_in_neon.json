@@ -1,0 +1,34 @@
+{
+    "id": "ms_003",
+    "title": "Trahison sous les Néons",
+    "type": "main_story",
+    "description": "L'informateur vous a tendu un piège au Club Neon. Fuyez ou éliminez les tueurs à gages.",
+    "rewards": {
+        "credits": 5000,
+        "reputation": 100,
+        "items": [
+            "vip_pass"
+        ]
+    },
+    "objectives": [
+        {
+            "id": "obj_1",
+            "description": "Rencontrez le contact VIP au Club Neon.",
+            "targetPos": {
+                "x": 520,
+                "y": 55,
+                "z": 520
+            },
+            "completed": false
+        },
+        {
+            "id": "obj_2",
+            "description": "Survivez à l'embuscade.",
+            "action": "combat_survival",
+            "threatLevel": "high",
+            "completed": false
+        }
+    ],
+    "mai_assistance": "Alerte : Multiples signatures thermiques armées en approche ! L'informateur vous a vendu. Sortez vos armes ou utilisez les conduits d'aération !",
+    "world_impact": "vip_contact_killed"
+}

@@ -1,0 +1,65 @@
+{
+    "palettes": [
+        {
+            "id": "skin_tone_01",
+            "name": "Pale",
+            "diffuse": "skin_tone_01_diffuse.png",
+            "roughness": "skin_roughness.png",
+            "normal": "skin_normal_map.png"
+        },
+        {
+            "id": "skin_tone_05",
+            "name": "Tan",
+            "diffuse": "skin_tone_05_diffuse.png",
+            "roughness": "skin_roughness.png",
+            "normal": "skin_normal_map.png"
+        },
+        {
+            "id": "skin_tone_10",
+            "name": "Dark",
+            "diffuse": "skin_tone_10_diffuse.png",
+            "roughness": "skin_roughness.png",
+            "normal": "skin_normal_map.png"
+        }
+    ],
+    "tattoos": [
+        {
+            "id": "tattoo_gang_dragon",
+            "name": "Dragon Gang Tattoo",
+            "texture": "tattoo_gang_dragon.png",
+            "location": "arm_right"
+        },
+        {
+            "id": "tattoo_cyber_circuit",
+            "name": "Cyber Circuit Tattoo",
+            "texture": "tattoo_cyber_circuit.png",
+            "location": "back"
+        },
+        {
+            "id": "tattoo_yakuza_neo",
+            "name": "Neo Yakuza Tattoo",
+            "texture": "tattoo_yakuza_neo.png",
+            "location": "torso_full"
+        }
+    ],
+    "makeup_scars": [
+        {
+            "id": "scar_eye_vertical",
+            "name": "Vertical Eye Scar",
+            "texture": "scar_eye_vertical.png",
+            "type": "scar"
+        },
+        {
+            "id": "makeup_goth_neon",
+            "name": "Neon Goth Makeup",
+            "texture": "makeup_goth_neon.png",
+            "type": "makeup"
+        },
+        {
+            "id": "warpaint_tech",
+            "name": "Tech Warpaint",
+            "texture": "warpaint_tech.png",
+            "type": "makeup"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "storeId": "shop_tech_hub",
+    "storeName": "mServices Tech Hub",
+    "type": "electronics",
+    "items": [
+        {
+            "id": "item_drone_scout",
+            "name": "Companion Scout Drone",
+            "type": "equipment",
+            "price": 45000,
+            "description": "Follows you and highlights targets."
+        },
+        {
+            "id": "item_hack_tool",
+            "name": "Override USB",
+            "type": "utility",
+            "price": 15000,
+            "description": "Grants access to level 2 security doors."
+        },
+        {
+            "id": "item_os_upgrade",
+            "name": "mOS Neural Link v2",
+            "type": "software",
+            "price": 75000,
+            "description": "Enhances HUD detection radius."
+        }
+    ]
+}

@@ -1,0 +1,94 @@
+{
+    "tops": [
+        {
+            "id": "hoodie_oversized_mServices",
+            "name": "mServices Oversized Hoodie",
+            "rarity": "Epic",
+            "price": 500,
+            "model": "hoodie_oversized_mServices.glb"
+        },
+        {
+            "id": "tech_vest_tactical",
+            "name": "Tactical Tech Vest",
+            "rarity": "Common",
+            "price": 150,
+            "model": "tech_vest_tactical.glb"
+        },
+        {
+            "id": "suit_jacket_corporate",
+            "name": "Corporate Suit Jacket",
+            "rarity": "Rare",
+            "price": 800,
+            "model": "suit_jacket_corporate.glb"
+        }
+    ],
+    "bottoms": [
+        {
+            "id": "cargo_pants_multi_pocket",
+            "name": "Multi-Pocket Cargo Pants",
+            "rarity": "Common",
+            "price": 120,
+            "model": "cargo_pants_multi_pocket.glb"
+        },
+        {
+            "id": "cyber_skirt_led",
+            "name": "LED Cyber Skirt",
+            "rarity": "Epic",
+            "price": 450,
+            "model": "cyber_skirt_led.glb"
+        },
+        {
+            "id": "joggers_street",
+            "name": "Street Joggers",
+            "rarity": "Common",
+            "price": 80,
+            "model": "joggers_street.glb"
+        }
+    ],
+    "shoes": [
+        {
+            "id": "sneakers_mNeon_v1",
+            "name": "mNeon v1 Sneakers",
+            "rarity": "Epic",
+            "price": 600,
+            "model": "sneakers_mNeon_v1.glb"
+        },
+        {
+            "id": "boots_combat_heavy",
+            "name": "Heavy Combat Boots",
+            "rarity": "Rare",
+            "price": 300,
+            "model": "boots_combat_heavy.glb"
+        },
+        {
+            "id": "shoes_formal_smart",
+            "name": "Smart Formal Shoes",
+            "rarity": "Rare",
+            "price": 400,
+            "model": "shoes_formal_smart.glb"
+        }
+    ],
+    "accessories": [
+        {
+            "id": "ar_glasses_liquid",
+            "name": "Liquid AR Glasses",
+            "rarity": "Legendary",
+            "price": 1200,
+            "model": "ar_glasses_liquid.glb"
+        },
+        {
+            "id": "smart_watch_mOS",
+            "name": "mOS Smart Watch",
+            "rarity": "Epic",
+            "price": 800,
+            "model": "smart_watch_mOS.glb"
+        },
+        {
+            "id": "cyber_mask_filter",
+            "name": "Filter Cyber Mask",
+            "rarity": "Rare",
+            "price": 350,
+            "model": "cyber_mask_filter.glb"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "id": "ms_002",
+    "title": "Le Deal mServices",
+    "type": "main_story",
+    "description": "mServices vous a contacté pour une mission freelance. Réparez le hub réseau du Financial District.",
+    "rewards": {
+        "credits": 2500,
+        "reputation": 50,
+        "items": [
+            "devkit_lvl1"
+        ]
+    },
+    "objectives": [
+        {
+            "id": "obj_1",
+            "description": "Rendez-vous au Financial District.",
+            "targetPos": {
+                "x": 120,
+                "y": 0,
+                "z": -150
+            },
+            "completed": false
+        },
+        {
+            "id": "obj_2",
+            "description": "Réinitialisez les 3 serveurs mServices.",
+            "action": "hack",
+            "targetId": "server_cluster_a",
+            "completed": false
+        }
+    ],
+    "mai_assistance": "Le code source des serveurs a été corrompu par un virus de gang. Lancez l'outil de diagnostic depuis votre mOS.",
+    "world_impact": "financial_district_network_restored"
+}

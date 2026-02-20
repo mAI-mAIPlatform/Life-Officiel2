@@ -3,11 +3,11 @@ import { PlayerConfig } from '../../utils/Constants.js';
 
 export class PlayerStats {
     constructor() {
-        this.maxHealth = PlayerConfig.RPG.MAX_HEALTH;
+        this.maxHealth = PlayerConfig.STATS.MAX_HEALTH;
         this.health = this.maxHealth;
         this.healthRegenTime = 0;
 
-        this.maxStamina = 100;
+        this.maxStamina = PlayerConfig.STATS.MAX_STAMINA || 100;
         this.stamina = this.maxStamina;
 
         // Attributs RPG de base (0 à 20)

@@ -1,0 +1,25 @@
+{
+    "id": "we_003",
+    "title": "Émeute à la Mairie",
+    "type": "world_event",
+    "description": "Les citoyens manifestent contre l'augmentation de la taxe mServices. La situation dégénère en émeute.",
+    "rewards": {
+        "credits": 0,
+        "reputation": -50,
+        "riot_loot": true
+    },
+    "objectives": [
+        {
+            "id": "obj_1",
+            "description": "Mairie de NeoCity. Faites un choix : aidez l'anti-émeute ou pillez les magasins alentours.",
+            "targetPos": {
+                "x": 0,
+                "y": 0,
+                "z": -50
+            },
+            "completed": false
+        }
+    ],
+    "mai_assistance": "Avertissement Légal : Participer à l'émeute annulera vos licences Corpo. Aider les forces de l'ordre augmentera votre score de crédit social.",
+    "world_impact": "protest_suppressed_or_escalated"
+}

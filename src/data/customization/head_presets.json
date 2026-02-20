@@ -1,0 +1,45 @@
+{
+    "presets": [
+        {
+            "id": "head_masculine_alpha",
+            "name": "Alpha Masculine",
+            "morphTargets": {
+                "jawWidth": 0.8,
+                "noseLength": 0.5,
+                "cheekbones": 0.6
+            },
+            "compatibleTorsos": [
+                "torso_slim",
+                "torso_buff",
+                "torso_cyber_frame"
+            ]
+        },
+        {
+            "id": "head_feminine_alpha",
+            "name": "Alpha Feminine",
+            "morphTargets": {
+                "jawWidth": 0.3,
+                "noseLength": 0.4,
+                "cheekbones": 0.8
+            },
+            "compatibleTorsos": [
+                "torso_slim",
+                "torso_athletic",
+                "torso_cyber_frame"
+            ]
+        },
+        {
+            "id": "head_cybernetic_v1",
+            "name": "Cybernetic V1",
+            "morphTargets": {
+                "jawWidth": 0.6,
+                "noseLength": 0.5,
+                "cheekbones": 0.5
+            },
+            "isCyber": true,
+            "compatibleTorsos": [
+                "torso_cyber_frame"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,31 @@
+{
+    "storeId": "shop_cars_premium",
+    "storeName": "Luxury Motors Boutique",
+    "type": "vehicle_dealership",
+    "items": [
+        {
+            "id": "item_car_vulcan",
+            "name": "Vulcan Hyperion",
+            "type": "vehicle",
+            "modelId": "mesh_vulcan_01",
+            "price": 1200000,
+            "description": "0 to 100 in 2.1s. Track-focused supercar."
+        },
+        {
+            "id": "item_car_phantasm",
+            "name": "Phantasm Wraith",
+            "type": "vehicle",
+            "modelId": "mesh_phantasm_vx",
+            "price": 850000,
+            "description": "Silent electric hum, brutal torque."
+        },
+        {
+            "id": "item_bike_ronin",
+            "name": "Ronin Blade",
+            "type": "vehicle",
+            "modelId": "mesh_bike_ronin",
+            "price": 150000,
+            "description": "Lightweight streetfighter motorcycle."
+        }
+    ]
+}
