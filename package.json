@@ -11,7 +11,7 @@
     "preview": "vite preview --port 4173",
     "lint": "echo 'No linter configured'",
     "typecheck": "echo 'Pure JS project — no TypeScript'",
-    "electron:start": "electron .",
+    "electron:start": "npm run build && electron .",
     "electron:build": "vite build && electron-builder"
   },
   "dependencies": {
@@ -51,7 +51,12 @@
       "target": [
         "deb",
         "rpm"
-      ]
+      ],
+      "maintainer": "Mathias <mathias.tss2012@gmail.com>"
     }
+  },
+  "author": {
+    "name": "Mathias",
+    "email": "mathias.tss2012@gmail.com"
   }
 }

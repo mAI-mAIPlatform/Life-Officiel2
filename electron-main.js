@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron';
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -16,9 +17,28 @@ function createWindow() {
         }
     });
 
-    // En environnement de dev on pourrait charger Vite http://localhost:5173
-    // En production on charge le build de dist/index.html
-    mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
+    const devServerUrl = process.env.VITE_DEV_SERVER_URL || process.env.ELECTRON_RENDERER_URL;
+
+    mainWindow.webContents.on('did-fail-load', (_event, errorCode, errorDescription, validatedURL) => {
+        console.error('[Electron] Échec de chargement renderer:', { errorCode, errorDescription, validatedURL });
+    });
+
+    if (!app.isPackaged && devServerUrl) {
+        mainWindow.loadURL(devServerUrl);
+        return;
+    }
+
+    const distIndexPath = path.join(__dirname, 'dist', 'index.html');
+
+    // Fallback explicite pour éviter un écran bloqué si le build n'a pas été généré.
+    if (!fs.existsSync(distIndexPath)) {
+        mainWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(
+            '<h2>Build introuvable</h2><p>Exécutez <code>npm run build</code> avant de lancer Electron.</p>'
+        ));
+        return;
+    }
+
+    mainWindow.loadFile(distIndexPath);
 }
 
 app.whenReady().then(() => {
