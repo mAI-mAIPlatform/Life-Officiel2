@@ -6,7 +6,7 @@
   "description": "LIFE RPG — Open World Cyberpunk par mCompany",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npx vite build",
     "preview": "vite preview --port 4173",
     "lint": "echo 'No linter configured'",
     "typecheck": "echo 'Pure JS project — no TypeScript'"
