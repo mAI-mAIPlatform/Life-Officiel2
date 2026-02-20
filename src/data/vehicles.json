@@ -1,0 +1,132 @@
+[
+    {
+        "id": "veh_car_sedan_basic",
+        "name": "Chevalier Standard",
+        "class": "Sedan",
+        "price": 12000,
+        "description": "La voiture de monsieur tout-le-monde. Fiable, peu rapide, coffre décent.",
+        "physics": {
+            "mass": 1400,
+            "maxSpeed": 160,
+            "acceleration": 4.5,
+            "brakingForce": 8000,
+            "handling": 0.6,
+            "suspensionStiffness": 20,
+            "suspensionDamping": 2.3
+        },
+        "features": {
+            "seats": 4,
+            "trunkCapacity": 50,
+            "fuelTank": 60,
+            "fuelConsumption": 0.05
+        },
+        "assets": {
+            "model": "models/vehicles/car_sedan.glb",
+            "engineSound": "audio/sfx/vehicles/engine_v4.ogg"
+        }
+    },
+    {
+        "id": "veh_car_sport_neo",
+        "name": "Quadra Type-R",
+        "class": "Sport",
+        "price": 155000,
+        "description": "Véhicule sportif haut de gamme. Accélération prodigieuse, contrôle difficile sous la pluie.",
+        "physics": {
+            "mass": 1200,
+            "maxSpeed": 320,
+            "acceleration": 9.8,
+            "brakingForce": 15000,
+            "handling": 0.9,
+            "suspensionStiffness": 35,
+            "suspensionDamping": 3.5
+        },
+        "features": {
+            "seats": 2,
+            "trunkCapacity": 15,
+            "fuelTank": 80,
+            "fuelConsumption": 0.15
+        },
+        "assets": {
+            "model": "models/vehicles/car_sport.glb",
+            "engineSound": "audio/sfx/vehicles/engine_v8.ogg"
+        }
+    },
+    {
+        "id": "veh_bike_street",
+        "name": "Yaiba Kusanagi",
+        "class": "Motorcycle",
+        "price": 32000,
+        "description": "Moto de rue légère, idéale pour se faufiler dans le trafic urbain.",
+        "physics": {
+            "mass": 300,
+            "maxSpeed": 240,
+            "acceleration": 8.0,
+            "brakingForce": 4000,
+            "handling": 0.95,
+            "suspensionStiffness": 15,
+            "suspensionDamping": 1.8
+        },
+        "features": {
+            "seats": 2,
+            "trunkCapacity": 5,
+            "fuelTank": 25,
+            "fuelConsumption": 0.03
+        },
+        "assets": {
+            "model": "models/vehicles/bike_street.glb",
+            "engineSound": "audio/sfx/vehicles/engine_bike.ogg"
+        }
+    },
+    {
+        "id": "veh_truck_cargo",
+        "name": "Behemoth M-Series",
+        "class": "Truck",
+        "price": 85000,
+        "description": "Camion de transport de marchandises. Très lent mais peut transporter des tonnes de matériel. Idéal pour les boulots de livraison.",
+        "physics": {
+            "mass": 5000,
+            "maxSpeed": 110,
+            "acceleration": 2.0,
+            "brakingForce": 12000,
+            "handling": 0.3,
+            "suspensionStiffness": 50,
+            "suspensionDamping": 5.0
+        },
+        "features": {
+            "seats": 2,
+            "trunkCapacity": 1000,
+            "fuelTank": 300,
+            "fuelConsumption": 0.3
+        },
+        "assets": {
+            "model": "models/vehicles/truck_cargo.glb",
+            "engineSound": "audio/sfx/vehicles/engine_diesel.ogg"
+        }
+    },
+    {
+        "id": "veh_air_heli_police",
+        "name": "NCPD Pursuit Chopper",
+        "class": "Helicopter",
+        "price": 2500000,
+        "description": "Hélicoptère de poursuite des forces de l'ordre. Équipé de projecteurs et scanners.",
+        "physics": {
+            "mass": 2500,
+            "maxSpeed": 280,
+            "acceleration": 0,
+            "handling": 0.8,
+            "liftForce": 30000
+        },
+        "features": {
+            "seats": 4,
+            "trunkCapacity": 0,
+            "fuelTank": 500,
+            "fuelConsumption": 0.5,
+            "isFlying": true,
+            "hasSiren": true
+        },
+        "assets": {
+            "model": "models/vehicles/heli_police.glb",
+            "engineSound": "audio/sfx/vehicles/heli_rotor.ogg"
+        }
+    }
+]

@@ -1,0 +1,102 @@
+[
+    {
+        "id": "prop_apt_low_1",
+        "name": "Appartement Résidentiel (Niveau 1)",
+        "type": "apartment",
+        "zone": "Slums",
+        "price": 25000,
+        "rent": 150,
+        "description": "Petit appartement sombre et humide. Idéal pour débuter ou se cacher.",
+        "location": {
+            "x": -1500,
+            "y": 15,
+            "z": 450
+        },
+        "features": {
+            "beds": 1,
+            "baths": 1,
+            "garageSlots": 0,
+            "stashCapacity": 20,
+            "pcAccess": true
+        },
+        "interiorType": "interior_slum_apt",
+        "isBuyable": true,
+        "isRentable": true
+    },
+    {
+        "id": "prop_apt_high_1",
+        "name": "Penthouse - Financial District",
+        "type": "apartment",
+        "zone": "FinancialDistrict",
+        "price": 5000000,
+        "rent": 15000,
+        "description": "Suite de grand luxe surplombant NeoCity. Verrières immenses, sécurité maximale, héliport privatif.",
+        "location": {
+            "x": 200,
+            "y": 350,
+            "z": -150
+        },
+        "features": {
+            "beds": 4,
+            "baths": 3,
+            "garageSlots": 10,
+            "stashCapacity": 500,
+            "pcAccess": true,
+            "helipad": true,
+            "customizable": true
+        },
+        "interiorType": "interior_penthouse",
+        "isBuyable": true,
+        "isRentable": false
+    },
+    {
+        "id": "prop_garage_mid_1",
+        "name": "Garage Souterrain - Suburbs",
+        "type": "garage",
+        "zone": "Suburbs",
+        "price": 85000,
+        "rent": 500,
+        "description": "Grand garage pour stocker vos véhicules et cacher vos opérations de customisation.",
+        "location": {
+            "x": 800,
+            "y": -5,
+            "z": 1200
+        },
+        "features": {
+            "beds": 0,
+            "baths": 0,
+            "garageSlots": 6,
+            "stashCapacity": 150,
+            "mechanicBay": true
+        },
+        "interiorType": "interior_garage_mid",
+        "isBuyable": true,
+        "isRentable": true
+    },
+    {
+        "id": "prop_biz_club",
+        "name": "Nightclub 'The Neon Void'",
+        "type": "business",
+        "zone": "CommercialCenter",
+        "price": 3500000,
+        "description": "Générez un revenu passif quotidien. Permet de blanchir de l'argent et recruter des indics.",
+        "location": {
+            "x": -50,
+            "y": 0,
+            "z": 300
+        },
+        "features": {
+            "passiveIncome": 12000, // Par jour
+            "moneyLaunderingBonus": 0.15,
+            "safeSpace": true,
+            "staff": [
+                "bartender",
+                "bouncer",
+                "dj"
+            ]
+        },
+        "interiorType": "interior_club",
+        "isBuyable": true,
+        "isRentable": false
+    }
+]

@@ -1,0 +1,138 @@
+{
+    "dialogue_jack_intro": {
+        "startNode": "node_1",
+        "nodes": {
+            "node_1": {
+                "text": "Hé, t'es nouveau dans le coin, non ? T'as l'air un peu paumé.",
+                "speaker": "Jack le Mécano",
+                "responses": [
+                    {
+                        "text": "Ouais, je cherche du boulot. T'as quelque chose ?",
+                        "nextNode": "node_2",
+                        "condition": null
+                    },
+                    {
+                        "text": "Mêle-toi de tes affaires, vieil homme.",
+                        "nextNode": "node_3",
+                        "condition": null
+                    },
+                    {
+                        "text": "[Intimidation] T'as un problème avec ma gueule ?",
+                        "nextNode": "node_4",
+                        "condition": {
+                            "stat": "reputation",
+                            "value": 10
+                        }
+                    }
+                ]
+            },
+            "node_2": {
+                "text": "Hmm. Mon livreur m'a planté ce matin. J'ai un colis à livrer aux docks. Tu prends le jeton ?",
+                "speaker": "Jack le Mécano",
+                "responses": [
+                    {
+                        "text": "J'accepte. C'est quoi la paye ?",
+                        "nextNode": "node_5",
+                        "action": {
+                            "type": "start_mission",
+                            "id": "mission_delivery_01"
+                        }
+                    },
+                    {
+                        "text": "Non merci, je suis pas un larbin.",
+                        "nextNode": "node_end"
+                    }
+                ]
+            },
+            "node_3": {
+                "text": "Wow, détends-toi l'ami. Je voulais juste aider. Trace ta route.",
+                "speaker": "Jack le Mécano",
+                "responses": [
+                    {
+                        "text": "[Partir]",
+                        "nextNode": "node_end"
+                    }
+                ]
+            },
+            "node_4": {
+                "text": "Ehh non, non patron, pas d'embrouille ! D'ailleurs j'ai un petit billet si tu veux faire une course pour moi...",
+                "speaker": "Jack le Mécano",
+                "responses": [
+                    {
+                        "text": "Crache le morceau.",
+                        "nextNode": "node_2",
+                        "action": {
+                            "type": "add_reputation",
+                            "value": 5
+                        }
+                    }
+                ]
+            },
+            "node_5": {
+                "text": "300 Crédits cash. Dépêche-toi, le contact attend pas.",
+                "speaker": "Jack le Mécano",
+                "responses": [
+                    {
+                        "text": "C'est parti.",
+                        "nextNode": "node_end"
+                    }
+                ]
+            },
+            "node_end": {
+                "text": "À plus tard.",
+                "speaker": "Jack le Mécano",
+                "isEnd": true
+            }
+        }
+    },
+    "dialogue_officer_stop": {
+        "startNode": "start",
+        "nodes": {
+            "start": {
+                "text": "Contrôle d'identité. Restez immobile et gardez les mains en évidence.",
+                "speaker": "Officier NCPD",
+                "responses": [
+                    {
+                        "text": "Bien sûr, officier. Voici mes papiers.",
+                        "nextNode": "comply"
+                    },
+                    {
+                        "text": "[Corruption - 500$] Vous êtes sûr de m'avoir vu ? Il fait si sombre...",
+                        "nextNode": "bribe",
+                        "condition": {
+                            "stat": "money",
+                            "value": 500
+                        }
+                    },
+                    {
+                        "text": "[Fuir]",
+                        "nextNode": "flee",
+                        "action": {
+                            "type": "add_wanted_level",
+                            "value": 1
+                        }
+                    }
+                ]
+            },
+            "comply": {
+                "text": "Très bien... Tout semble en règle. Circulez.",
+                "speaker": "Officier NCPD",
+                "isEnd": true
+            },
+            "bribe": {
+                "text": "Hmm. Il est vrai que la visibilité est mauvaise ce soir. Bonne route le citoyen.",
+                "speaker": "Officier NCPD",
+                "action": {
+                    "type": "remove_money",
+                    "value": 500
+                },
+                "isEnd": true
+            },
+            "flee": {
+                "text": "SUSPECT EN FUITE ! DEMANDE DE RENFORTS !",
+                "speaker": "Officier NCPD",
+                "isEnd": true
+            }
+        }
+    }
+}

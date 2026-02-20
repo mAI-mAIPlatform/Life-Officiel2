@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Liquid Glass Styles natifs */
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-liquid border border-white/10 shadow-glass-glow rounded-2xl;
+    /* Flou gaussien intense et bordure lumineuse subtile */
+  }
+
+  .glass-card {
+    @apply bg-black/40 backdrop-blur-md border border-white/5 shadow-lg rounded-xl transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply border-neo-cyan/30 shadow-neon-cyan bg-black/60;
+  }
+
+  .glass-button {
+    @apply relative overflow-hidden bg-white/5 border border-white/10 text-white rounded-lg px-6 py-2 transition-all duration-300 backdrop-blur-sm font-medium;
+  }
+
+  .glass-button:hover {
+    @apply border-neo-cyan text-neo-cyan shadow-neon-cyan bg-white/10;
+  }
+
+  .glass-button:active {
+    @apply scale-95;
+  }
+
+  /* Animations personnalisées */
+  .scanline {
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0),
+      rgba(255,255,255,0) 50%,
+      rgba(0,0,0,0.1) 50%,
+      rgba(0,0,0,0.1)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+  }
+  
+  /* Utils utiles */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+/* Global Reset pour la 3D */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+}
+
+#game-canvas-container canvas {
+  display: block;
+  outline: none;
+}

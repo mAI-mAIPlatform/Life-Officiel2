@@ -1,0 +1,131 @@
+[
+    {
+        "id": "mission_delivery_01",
+        "title": "Un paquet pour les Docks",
+        "type": "delivery",
+        "giver": "jack_mechanic",
+        "description": "Jack le mécano a besoin de livrer un colis d'outils aux Docks. Son contact l'attend.",
+        "objectives": [
+            {
+                "id": "obj_01",
+                "type": "go_to",
+                "target": {
+                    "x": 1200,
+                    "y": 0,
+                    "z": -800
+                },
+                "description": "Aller aux Docks de NeoCity.",
+                "isOptional": false
+            },
+            {
+                "id": "obj_02",
+                "type": "interact_npc",
+                "target": "npc_dockworker",
+                "description": "Donner le paquet au docker.",
+                "isOptional": false
+            }
+        ],
+        "rewards": {
+            "money": 300,
+            "xp": 100,
+            "reputation_street": 2
+        },
+        "requirements": {
+            "level": 1
+        }
+    },
+    {
+        "id": "mission_heist_bank_small",
+        "title": "Casse : Banque de Quartier",
+        "type": "heist",
+        "giver": "unknown_netrunner",
+        "description": "Un plan pour vider les coffres d'une petite filiale de la NeoBank. Fortement risqué. Demande du matériel lourd et peut-être une équipe.",
+        "objectives": [
+            {
+                "id": "obj_pre_01",
+                "type": "obtain_item",
+                "target": "item_tool_thermaldrill",
+                "description": "Trouver ou acheter une perceuse thermique.",
+                "isOptional": false
+            },
+            {
+                "id": "obj_01",
+                "type": "enter_zone",
+                "target": "zone_bank_interior_suburbs",
+                "description": "Infiltrer la banque.",
+                "isOptional": false
+            },
+            {
+                "id": "obj_02",
+                "type": "hack_terminal",
+                "target": "terminal_cam_override",
+                "description": "Désactiver le système de sécurité.",
+                "isOptional": true
+            },
+            {
+                "id": "obj_03",
+                "type": "interact_object",
+                "target": "vault_door",
+                "description": "Percer le coffre (Durée: 3 minutes).",
+                "isOptional": false
+            },
+            {
+                "id": "obj_04",
+                "type": "escape_police",
+                "description": "Semer les forces de l'ordre (Perdre le niveau de recherche).",
+                "isOptional": false
+            }
+        ],
+        "rewards": {
+            "money": 25000,
+            "xp": 1500,
+            "reputation_street": 15,
+            "items": [
+                "item_misc_goldbar"
+            ]
+        },
+        "requirements": {
+            "reputation_street": 10,
+            "level": 5
+        }
+    },
+    {
+        "id": "mission_corporate_espionage",
+        "title": "Cyber-Espionnage Industriel",
+        "type": "stealth",
+        "giver": "corporate_fixer",
+        "description": "Les concurrents de Militech veulent les données de recherche du nouveau drone. Entrez, piratez, ressortez. Zéro mort si possible.",
+        "objectives": [
+            {
+                "id": "obj_01",
+                "type": "infiltrate",
+                "target": "zone_corp_hq_upper",
+                "description": "Infiltrer le QG par le toit ou la maintenance."
+            },
+            {
+                "id": "obj_02",
+                "type": "download_data",
+                "target": "server_main",
+                "description": "Télécharger le projet 'Icarus'."
+            },
+            {
+                "id": "obj_03",
+                "type": "stealth_bonus",
+                "description": "Ne déclencher aucune alarme. Ne tuer aucun garde.",
+                "isOptional": true
+            }
+        ],
+        "rewards": {
+            "money": 12000,
+            "bonus_stealth_money": 8000,
+            "xp": 800,
+            "reputation_corp": 10
+        },
+        "requirements": {
+            "skills": [
+                "hacking",
+                "stealth"
+            ]
+        }
+    }
+]

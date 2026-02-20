@@ -1,0 +1,160 @@
+[
+    {
+        "id": "item_food_burger",
+        "name": "Neo-Burger Synthétique",
+        "type": "consumable",
+        "category": "food",
+        "description": "Un burger classique de NeoCity, composé à 90% de protéines de synthèse.",
+        "weight": 0.2,
+        "price": 15,
+        "effects": {
+            "hunger": 35,
+            "health": 5,
+            "thirst": -5
+        },
+        "maxStack": 10,
+        "model": "models/items/food_burger.glb",
+        "icon": "🍔"
+    },
+    {
+        "id": "item_drink_cola",
+        "name": "Nuka-Kola Quantum",
+        "type": "consumable",
+        "category": "drink",
+        "description": "Boisson hautement caféinée et légèrement radioactive.",
+        "weight": 0.3,
+        "price": 8,
+        "effects": {
+            "thirst": 40,
+            "stamina": 20,
+            "health": -2
+        },
+        "maxStack": 15,
+        "model": "models/items/drink_cola.glb",
+        "icon": "🥤"
+    },
+    {
+        "id": "item_med_stimpack",
+        "name": "Stimpack Militaire Mk-II",
+        "type": "consumable",
+        "category": "medicine",
+        "description": "Injecteur automatique contenant des nanobots régénérateurs.",
+        "weight": 0.1,
+        "price": 250,
+        "effects": {
+            "health": 75,
+            "stamina": 50
+        },
+        "maxStack": 5,
+        "model": "models/items/med_stimpack.glb",
+        "icon": "💉"
+    },
+    {
+        "id": "item_weap_pistol_9mm",
+        "name": "Vindicator 9mm",
+        "type": "weapon",
+        "category": "firearm",
+        "description": "Pistolet semi-automatique fiable, l'arme de poing standard de NeoCity.",
+        "weight": 1.2,
+        "price": 850,
+        "stats": {
+            "damage": 25,
+            "fireRate": 400,
+            "magazineSize": 12,
+            "reloadTime": 1.5,
+            "range": 50,
+            "recoil": 0.5
+        },
+        "ammoType": "ammo_9mm",
+        "maxStack": 1,
+        "model": "models/weapons/pistol_9mm.glb",
+        "icon": "🔫"
+    },
+    {
+        "id": "item_weap_rifle_ar",
+        "name": "Fusil d'Assaut K-47",
+        "type": "weapon",
+        "category": "firearm",
+        "description": "Arme automatique à forte cadence de tir. Illégal sans permis corporatiste.",
+        "weight": 3.8,
+        "price": 3500,
+        "stats": {
+            "damage": 32,
+            "fireRate": 600,
+            "magazineSize": 30,
+            "reloadTime": 2.2,
+            "range": 150,
+            "recoil": 1.2
+        },
+        "ammoType": "ammo_556mm",
+        "maxStack": 1,
+        "model": "models/weapons/rifle_ar.glb",
+        "icon": "🧨"
+    },
+    {
+        "id": "item_ammo_9mm",
+        "name": "Munitions 9mm",
+        "type": "ammo",
+        "category": "ammo",
+        "description": "Boîte de munitions standard pour pistolets et SMGs.",
+        "weight": 0.01,
+        "price": 2,
+        "maxStack": 240,
+        "model": "models/items/ammo_box_small.glb",
+        "icon": "🛡️"
+    },
+    {
+        "id": "item_misc_phone",
+        "name": "mPhone Pro Max",
+        "type": "utility",
+        "category": "electronics",
+        "description": "Terminal de communication principal. Permet l'accès au mOS.",
+        "weight": 0.15,
+        "price": 1200,
+        "maxStack": 1,
+        "model": "models/items/mphone.glb",
+        "icon": "📱"
+    },
+    {
+        "id": "item_junk_scrap",
+        "name": "Débris Électroniques",
+        "type": "material",
+        "category": "junk",
+        "description": "Composants récupérés sur de vieux terminaux. Utilisés pour le craft.",
+        "weight": 0.5,
+        "price": 15,
+        "maxStack": 100,
+        "model": "models/items/junk_scrap.glb",
+        "icon": "⚙️"
+    },
+    {
+        "id": "item_tool_lockpick",
+        "name": "Passe-partout Électronique",
+        "type": "tool",
+        "category": "illegal",
+        "description": "Appareil permettant de contourner les serrures magnétiques bas de gamme.",
+        "weight": 0.2,
+        "price": 500,
+        "maxStack": 5,
+        "durability": 3,
+        "model": "models/items/tool_lockpick.glb",
+        "icon": "🔓"
+    },
+    {
+        "id": "item_apparel_jacket",
+        "name": "Veste en Cuir Renforcée",
+        "type": "apparel",
+        "category": "clothing",
+        "description": "Veste offrant une légère protection balistique.",
+        "weight": 2.5,
+        "price": 450,
+        "stats": {
+            "armor": 15,
+            "stealth": -2
+        },
+        "equipSlot": "torso",
+        "maxStack": 1,
+        "model": "models/apparel/jacket_leather.glb",
+        "icon": "🧥"
+    }
+]
