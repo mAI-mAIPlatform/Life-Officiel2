@@ -31,7 +31,7 @@ class Engine3D {
      * Initialise le moteur 3D sur le canvas donné
      * @param {string} containerId ID de l'élément div HTML container
      */
-    init(containerId = 'game-canvas-container') {
+    init(containerId = 'game-canvas-container') {  // DOIT correspondre à l'ID dans index.html
         if (this.isInitialized) {
             Logger.warn('Engine', 'Le moteur est déjà initialisé.');
             return;
@@ -90,14 +90,14 @@ class Engine3D {
         // Configuration Globale des Ombres
         if (EngineConfig.RENDERER.ENABLE_SHADOWS) {
             this.renderer.shadowMap.enabled = true;
-            this.renderer.shadowMap.type = EngineConfig.RENDERER.SHADOW_MAP_TYPE;
+            // PCFSoftShadowMap = ombres douces et de qualité
+            this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             this.renderer.shadowMap.autoUpdate = true;
-            // Optimisation: false par défaut si on gère la maj des ombres manuellement
-            // this.renderer.shadowMap.needsUpdate = true;
         }
 
-        // Ajout au DOM
+        // Ajout au DOM — Three.js crée son propre canvas et l'insère dans le container
         this.container.appendChild(this.renderer.domElement);
+        this.renderer.domElement.setAttribute('tabindex', '0'); // Pour le pointerlock
 
         // Empêche le clic droit natif sur le canvas
         this.renderer.domElement.addEventListener('contextmenu', e => e.preventDefault());

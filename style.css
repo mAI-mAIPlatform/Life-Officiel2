@@ -1,68 +1,721 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ================================================================
+   LIFE RPG — Global Stylesheet
+   Remplace Tailwind par du CSS pur pour éviter toute dépendance build.
+   ================================================================ */
 
-@layer utilities {
-  /* Liquid Glass Styles natifs */
-  .glass-panel {
-    @apply bg-white/5 backdrop-blur-liquid border border-white/10 shadow-glass-glow rounded-2xl;
-    /* Flou gaussien intense et bordure lumineuse subtile */
-  }
+/* ----------------------------------------------------------------
+   1. VARIABLES GLOBALES (Design Tokens)
+   ---------------------------------------------------------------- */
+:root {
+  --color-neo-cyan: #00f3ff;
+  --color-neo-pink: #ff00aa;
+  --color-neo-purple: #b026ff;
+  --color-neo-green: #00ff88;
+  --color-neo-orange: #ffaa00;
+  --color-neo-red: #ff1100;
 
-  .glass-card {
-    @apply bg-black/40 backdrop-blur-md border border-white/5 shadow-lg rounded-xl transition-all duration-300;
-  }
-  
-  .glass-card:hover {
-    @apply border-neo-cyan/30 shadow-neon-cyan bg-black/60;
-  }
+  --color-bg-main: #0a0a0c;
+  --color-bg-dark: #121216;
+  --color-glass-bg: rgba(15, 15, 20, 0.72);
+  --color-glass-border: rgba(255, 255, 255, 0.10);
 
-  .glass-button {
-    @apply relative overflow-hidden bg-white/5 border border-white/10 text-white rounded-lg px-6 py-2 transition-all duration-300 backdrop-blur-sm font-medium;
-  }
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0b0;
 
-  .glass-button:hover {
-    @apply border-neo-cyan text-neo-cyan shadow-neon-cyan bg-white/10;
-  }
+  --shadow-neon-cyan: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 30px rgba(0, 243, 255, 0.2);
+  --shadow-neon-pink: 0 0 10px rgba(255, 0, 170, 0.5), 0 0 30px rgba(255, 0, 170, 0.2);
+  --shadow-neon-purple: 0 0 10px rgba(176, 38, 255, 0.5), 0 0 30px rgba(176, 38, 255, 0.2);
+  --shadow-glass: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 
-  .glass-button:active {
-    @apply scale-95;
-  }
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
-  /* Animations personnalisées */
-  .scanline {
-    background: linear-gradient(
-      to bottom,
-      rgba(255,255,255,0),
-      rgba(255,255,255,0) 50%,
-      rgba(0,0,0,0.1) 50%,
-      rgba(0,0,0,0.1)
-    );
-    background-size: 100% 4px;
-    pointer-events: none;
-  }
-  
-  /* Utils utiles */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
+  --blur-glass: 18px;
+  --blur-light: 8px;
+
+  --z-canvas: 0;
+  --z-hud: 10;
+  --z-menu: 100;
+  --z-notif: 200;
+  --z-boot: 1000;
 }
 
-/* Global Reset pour la 3D */
-html, body {
+/* ----------------------------------------------------------------
+   2. RESET GLOBAL
+   ---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html,
+body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: var(--color-bg-main);
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
   touch-action: none;
+  /* Empêche le scroll sur mobile */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-#game-canvas-container canvas {
+/* ----------------------------------------------------------------
+   3. LAYOUT DE BASE
+   ---------------------------------------------------------------- */
+.game-canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-canvas);
+  overflow: hidden;
+}
+
+/* Three.js ajoute un canvas ici automatiquement */
+.game-canvas-container canvas {
   display: block;
+  width: 100% !important;
+  height: 100% !important;
   outline: none;
+}
+
+.ui-layer {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-hud);
+  pointer-events: none;
+  /* Le HUD ne capture PAS les events */
+}
+
+/* ----------------------------------------------------------------
+   4. COMPOSANT : LIQUID GLASS (Glassmorphism avancé)
+   ---------------------------------------------------------------- */
+.liquid-glass {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(var(--blur-glass)) saturate(1.8);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(1.8);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--shadow-glass);
+  border-radius: 16px;
+}
+
+.glass-panel {
+  background: rgba(10, 10, 15, 0.75);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--shadow-glass);
+  border-radius: 12px;
+}
+
+.glass-card {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(var(--blur-light));
+  -webkit-backdrop-filter: blur(var(--blur-light));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 243, 255, 0.3);
+  box-shadow: var(--shadow-neon-cyan);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.glass-button {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: var(--color-text-primary);
+  border-radius: 8px;
+  padding: 8px 24px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(var(--blur-light));
+  -webkit-backdrop-filter: blur(var(--blur-light));
+  pointer-events: auto;
+}
+
+.glass-button:hover {
+  border-color: var(--color-neo-cyan);
+  color: var(--color-neo-cyan);
+  box-shadow: var(--shadow-neon-cyan);
+  background: rgba(0, 243, 255, 0.08);
+}
+
+.glass-button:active {
+  transform: scale(0.95);
+}
+
+/* ----------------------------------------------------------------
+   5. HUD — Conteneur Principal
+   ---------------------------------------------------------------- */
+.hud-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hud-container.hidden {
+  display: none;
+}
+
+/* Stats (Haut Gauche) */
+.hud-stats-panel {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 16px 18px;
+  min-width: 220px;
+  pointer-events: auto;
+}
+
+.hud-stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.hud-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hud-value {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.hud-value-max {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.hud-bar-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.hud-bar {
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+
+.hud-bar-hp {
+  background: var(--color-neo-cyan);
+  box-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+}
+
+.hud-bar-sta {
+  background: var(--color-neo-purple);
+  box-shadow: 0 0 8px rgba(176, 38, 255, 0.5);
+}
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+.hud-money-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.hud-money-icon {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-neo-green);
+}
+
+.hud-money-value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+/* Minimap (Haut Droit) */
+.hud-minimap {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid rgba(0, 243, 255, 0.3) !important;
+  pointer-events: auto;
+}
+
+.hud-minimap-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-neo-pink);
+  box-shadow: var(--shadow-neon-pink);
+  z-index: 2;
+}
+
+.hud-minimap-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.25);
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Arme (Bas Droit) */
+.hud-weapon-panel {
+  position: absolute;
+  bottom: 24px;
+  right: 20px;
+  padding: 14px 20px;
+  text-align: right;
+  pointer-events: auto;
+}
+
+.hud-weapon-name {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hud-ammo {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--color-neo-pink);
+  letter-spacing: 0.02em;
+}
+
+/* Viseur */
+.hud-crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hud-crosshair-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hud-crosshair-ring {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+/* Wanted Level (Bas Centre) */
+.hud-wanted {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.hud-wanted.hidden {
+  display: none;
+}
+
+.hud-wanted-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--color-neo-red);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.hud-stars {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+/* ----------------------------------------------------------------
+   6. TEXTES COLORÉS (remplace les classes Tailwind text-*)
+   ---------------------------------------------------------------- */
+.text-neo-cyan {
+  color: var(--color-neo-cyan);
+}
+
+.text-neo-pink {
+  color: var(--color-neo-pink);
+}
+
+.text-neo-purple {
+  color: var(--color-neo-purple);
+}
+
+.text-neo-green {
+  color: var(--color-neo-green);
+}
+
+.text-neo-orange {
+  color: var(--color-neo-orange);
+}
+
+.text-neo-red {
+  color: var(--color-neo-red);
+}
+
+/* ----------------------------------------------------------------
+   7. BOOT / LOADING SCREEN
+   ---------------------------------------------------------------- */
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-boot);
+  background: var(--color-bg-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease;
+}
+
+.boot-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-logo {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.boot-logo-text {
+  font-family: var(--font-mono);
+  font-size: clamp(72px, 15vw, 160px);
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  background: linear-gradient(135deg, var(--color-neo-cyan) 0%, var(--color-neo-purple) 50%, var(--color-neo-pink) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: logo-pulse 3s ease-in-out infinite;
+  text-transform: uppercase;
+}
+
+.boot-logo-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.boot-progress-container {
+  width: min(480px, 80vw);
+}
+
+.boot-progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.boot-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-neo-cyan), var(--color-neo-purple));
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.6);
+}
+
+.boot-status-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.boot-scanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.04) 2px,
+      rgba(0, 0, 0, 0.04) 4px);
+  animation: scanline-move 8s linear infinite;
+}
+
+/* ----------------------------------------------------------------
+   8. SYSTÈME DE NOTIFICATIONS (TOAST)
+   ---------------------------------------------------------------- */
+#notif-container {
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: var(--z-notif);
+  pointer-events: none;
+  align-items: flex-end;
+  max-width: 360px;
+}
+
+.toast-notif {
+  background: rgba(10, 10, 15, 0.88);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 18px;
+  min-width: 280px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+  border-left-width: 3px;
+  border-left-style: solid;
+}
+
+.toast-notif.toast-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast-notif.toast-out {
+  transform: translateX(120%);
+  opacity: 0;
+}
+
+.toast-notif.toast-info {
+  border-left-color: var(--color-neo-cyan);
+}
+
+.toast-notif.toast-success {
+  border-left-color: var(--color-neo-green);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.12);
+}
+
+.toast-notif.toast-error {
+  border-left-color: var(--color-neo-red);
+  box-shadow: 0 0 15px rgba(255, 17, 0, 0.12);
+}
+
+.toast-notif.toast-warning {
+  border-left-color: var(--color-neo-orange);
+}
+
+.toast-notif.toast-money {
+  border-left-color: var(--color-neo-green);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+}
+
+.toast-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.toast-message {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.4;
+}
+
+/* ----------------------------------------------------------------
+   9. MENUS OVERLAY
+   ---------------------------------------------------------------- */
+.menu-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  z-index: var(--z-menu);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-overlay.hidden {
+  display: none;
+}
+
+/* Flou de fond quand menu ouvert */
+.ui-layer.menu-open {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ----------------------------------------------------------------
+   10. UTILITAIRES
+   ---------------------------------------------------------------- */
+.hidden {
+  display: none !important;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
+/* ----------------------------------------------------------------
+   11. ANIMATIONS
+   ---------------------------------------------------------------- */
+@keyframes logo-pulse {
+
+  0%,
+  100% {
+    filter: brightness(1) drop-shadow(0 0 20px rgba(0, 243, 255, 0.3));
+  }
+
+  50% {
+    filter: brightness(1.15) drop-shadow(0 0 40px rgba(176, 38, 255, 0.4));
+  }
+}
+
+@keyframes scanline-move {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 0 100px;
+  }
+}
+
+@keyframes neon-flicker {
+
+  0%,
+  95%,
+  100% {
+    opacity: 1;
+  }
+
+  96% {
+    opacity: 0.4;
+  }
+
+  97% {
+    opacity: 1;
+  }
+
+  98% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes pulse-border {
+
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.7);
+  }
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 243, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* Classes scanline pour compatibilité */
+.scanline {
+  background: repeating-linear-gradient(to bottom, transparent, transparent 50%, rgba(0, 0, 0, 0.08) 50%, rgba(0, 0, 0, 0.08));
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* no-scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

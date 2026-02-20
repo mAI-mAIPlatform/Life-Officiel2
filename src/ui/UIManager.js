@@ -95,8 +95,8 @@ class UIManagerSystem {
         Input.exitPointerLock();
         this.isInputBlockedByUI = true;
 
-        // Si le menu a besoin de flouter le monde derrière (Effet Liquid Glass avancé)
-        this.baseLayer.classList.add('backdrop-blur-sm', 'bg-black/20');
+        // Si le menu a besoin de flouter le monde derrière
+        this.baseLayer.classList.add('menu-open');
 
         this.activeMenu.show(data);
         Events.emit('ui:menu_opened', id);
@@ -113,8 +113,8 @@ class UIManagerSystem {
         this.activeMenu.hide();
         this.activeMenu = null;
 
-        // Retirer le blur
-        this.baseLayer.classList.remove('backdrop-blur-sm', 'bg-black/20');
+        // Retirer l'effect de flou
+        this.baseLayer.classList.remove('menu-open');
 
         this.isInputBlockedByUI = false;
 
@@ -140,90 +140,42 @@ class UIManagerSystem {
      * @param {Object} data { title, message, type (success, warning, error, info), duration }
      */
     showNotification({ title, message, type = 'info', duration = 4000 }) {
-        // Container Notifications (Le créer s'il n'existe pas)
         let notifContainer = document.getElementById('notif-container');
         if (!notifContainer) {
             notifContainer = document.createElement('div');
             notifContainer.id = 'notif-container';
-            notifContainer.className = 'absolute top-10 right-10 flex flex-col gap-3 z-[200] pointer-events-none items-end max-w-sm';
             this.baseLayer.appendChild(notifContainer);
         }
 
-        // Création de la Div
         const toast = document.createElement('div');
+        toast.className = `toast-notif toast-${type}`;
 
-        // Style de base (Liquid Glass)
-        toast.className = `glass-panel px-5 py-4 translate-x-[120%] opacity-0 transition-all duration-500 ease-out flex items-start gap-4 border-l-4 min-w-[300px] shadow-lg relative overflow-hidden`;
-
-        // Couleur latérale selon le type
-        let bgStyle = "bg-white/5";
-        let icon = "ℹ️";
-        let glowClass = "";
-
-        switch (type) {
-            case 'success':
-                toast.classList.add('border-l-neo-cyan');
-                icon = "✓";
-                glowClass = "shadow-[0_0_15px_rgba(0,243,255,0.2)]";
-                break;
-            case 'error':
-                toast.classList.add('border-l-red-500');
-                icon = "⚠";
-                glowClass = "shadow-[0_0_15px_rgba(255,17,0,0.2)]";
-                break;
-            case 'warning':
-                toast.classList.add('border-l-yellow-500');
-                icon = "★";
-                break;
-            case 'money':
-                toast.classList.add('border-l-green-400');
-                icon = "€$";
-                break;
-        }
-
-        toast.classList.add(glowClass);
-
-        // Scanline effect
+        // Scanline
         const scanline = document.createElement('div');
-        scanline.className = 'absolute inset-0 scanline opacity-30';
+        scanline.className = 'scanline';
+        scanline.style.cssText = 'position:absolute;inset:0;opacity:0.2;pointer-events:none;';
         toast.appendChild(scanline);
 
-        // Contenu Intérieur
+        // Contenu
         const content = document.createElement('div');
-        content.className = 'relative z-10 w-full';
-
+        content.style.cssText = 'position:relative;z-index:1;';
         content.innerHTML = `
-            <div class="flex justify-between items-center mb-1">
-                <span class="text-xs font-mono font-bold tracking-widest text-white/70">${title}</span>
-                <span class="text-xs opacity-50 font-mono">${icon}</span>
-            </div>
-            <div class="text-sm font-sans text-white/90 leading-snug">
-                ${message}
-            </div>
+            <span class="toast-title">${title}</span>
+            <span class="toast-message">${message}</span>
         `;
-
         toast.appendChild(content);
         notifContainer.appendChild(toast);
 
-        // Animer IN (Entrée par la droite)
+        // Animer IN (prochain tick pour garantir la transition CSS)
         requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                toast.classList.remove('translate-x-[120%]', 'opacity-0');
-                toast.classList.add('translate-x-0', 'opacity-100');
-            });
+            requestAnimationFrame(() => toast.classList.add('toast-in'));
         });
 
-        // Supprimer après Délai
+        // Supprimer après la durée demandée
         setTimeout(() => {
-            // Animer OUT
-            toast.classList.remove('translate-x-0', 'opacity-100');
-            toast.classList.add('translate-x-[120%]', 'opacity-0');
-
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.parentNode.removeChild(toast);
-                }
-            }, 500); // 500ms pour l'animation de sortie
+            toast.classList.remove('toast-in');
+            toast.classList.add('toast-out');
+            setTimeout(() => toast.parentNode && toast.parentNode.removeChild(toast), 500);
         }, duration);
     }
 

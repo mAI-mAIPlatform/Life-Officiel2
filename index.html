@@ -1,83 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LIFE RPG - By mCompany</title>
-    <!-- On charge mOS_UI_Kit_CSS.css -->
-    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="LIFE RPG - Open World Cyberpunk par mCompany. Vivez dans NeoCity." />
+    <meta name="theme-color" content="#0a0a0c" />
 
-    <!-- Importer Three.js Globalement pour eviter des erreurs d'instantiation si modules externes (Optionnel via Vite) -->
-    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.150.1/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three@0.150.1/examples/jsm/"
-        }
-      }
-    </script>
+    <!-- Fonts modernes depuis Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <title>LIFE RPG - NeoCity | mCompany</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
-<body class="bg-black overflow-hidden m-0 p-0 w-screen h-screen">
+<body>
 
-    <!-- WebGL Canvas Constraint -->
-    <canvas id="game-canvas" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
-
-    <!-- UI Overlay Layer (Pointer Events None on container, Auto on children) -->
-    <div id="ui-layer" class="absolute top-0 left-0 w-full h-full z-10 pointer-events-none">
-
-        <!-- HUD Principal -->
-        <div id="hud-container" class="hidden w-full h-full">
-            <!-- Zone Stats (Haut Gauche) -->
-            <div
-                class="absolute top-4 left-4 flex flex-col gap-2 pointer-events-auto liquid-glass p-4 rounded-xl shadow-neon-blue">
-                <div class="text-white font-mono text-xl tracking-wider">
-                    <span class="text-neo-blue">HP</span> <span id="hud-hp">100</span>/100
-                </div>
-                <div class="w-48 h-2 bg-gray-800 rounded-full overflow-hidden">
-                    <div id="hud-hp-bar" class="h-full bg-neo-blue transition-all" style="width: 100%"></div>
-                </div>
-
-                <div class="text-white font-mono text-xl tracking-wider mt-2">
-                    <span class="text-neo-purple">STA</span> <span id="hud-sta">100</span>/100
-                </div>
-                <div class="w-48 h-2 bg-gray-800 rounded-full overflow-hidden">
-                    <div id="hud-sta-bar" class="h-full bg-neo-purple transition-all" style="width: 100%"></div>
-                </div>
-
-                <div class="text-white font-mono  tracking-wider mt-4">
-                    <span class="text-neo-cyan font-bold">€$</span> <span id="hud-money" class="text-2xl">0</span>
-                </div>
-            </div>
-
-            <!-- Minimap Placeholder (Haut Droit) -->
-            <div
-                class="absolute top-4 right-4 w-48 h-48 rounded-full border-2 border-neo-cyan/50 liquid-glass flex items-center justify-center pointer-events-auto overflow-hidden">
-                <div class="absolute w-2 h-2 rounded-full bg-neo-pink shadow-neon-pink z-10"></div>
-                <div class="text-white/30 text-xs text-center">NCPD<br>RADAR</div>
-            </div>
-
-            <!-- Weapon / Ammo (Bas Droit) -->
-            <div class="absolute bottom-4 right-4 liquid-glass p-4 rounded-xl text-right pointer-events-auto">
-                <div class="text-white font-mono text-3xl italic" id="hud-weapon-name">UNARMED</div>
-                <div class="text-neo-pink font-black text-4xl" id="hud-ammo">-- / --</div>
-            </div>
-
-            <!-- Crosshair -->
-            <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none mix-blend-difference">
-                <div class="w-1 h-1 bg-white rounded-full"></div>
-                <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 border-2 border-white/50 rounded-full">
-                </div>
-            </div>
+    <!-- ============================================================ -->
+    <!-- BOOT / LOADING SCREEN                                        -->
+    <!-- ============================================================ -->
+    <div id="boot-screen" class="boot-screen">
+        <div class="boot-logo">
+            <div class="boot-logo-text">LIFE</div>
+            <div class="boot-logo-sub">AN mCOMPANY PRODUCTION</div>
         </div>
-
+        <div class="boot-progress-container">
+            <div class="boot-progress-bar">
+                <div id="boot-progress-fill" class="boot-progress-fill"></div>
+            </div>
+            <div id="boot-status-text" class="boot-status-text">Initialisation du moteur...</div>
+        </div>
+        <div class="boot-scanline"></div>
     </div>
 
+    <!-- ============================================================ -->
+    <!-- WebGL Canvas Container (Three.js y ajoutera son canvas)     -->
+    <!-- ============================================================ -->
+    <div id="game-canvas-container" class="game-canvas-container"></div>
+
+    <!-- ============================================================ -->
+    <!-- UI Overlay Layer — Au-dessus du canvas, en-dessous des menus -->
+    <!-- ============================================================ -->
+    <div id="ui-layer" class="ui-layer">
+
+        <!-- HUD Principal (masqué au démarrage) -->
+        <div id="hud-container" class="hud-container hidden">
+
+            <!-- Zone Stats (Haut Gauche) -->
+            <div class="hud-stats-panel liquid-glass">
+                <div class="hud-stat-row">
+                    <span class="hud-label text-neo-cyan">HP</span>
+                    <span id="hud-hp" class="hud-value">100</span>
+                    <span class="hud-value-max">/100</span>
+                </div>
+                <div class="hud-bar-track">
+                    <div id="hud-hp-bar" class="hud-bar hud-bar-hp"></div>
+                </div>
+
+                <div class="hud-stat-row mt-2">
+                    <span class="hud-label text-neo-purple">STA</span>
+                    <span id="hud-sta" class="hud-value">100</span>
+                    <span class="hud-value-max">/100</span>
+                </div>
+                <div class="hud-bar-track">
+                    <div id="hud-sta-bar" class="hud-bar hud-bar-sta"></div>
+                </div>
+
+                <div class="hud-money-row">
+                    <span class="hud-money-icon">€$</span>
+                    <span id="hud-money" class="hud-money-value">0</span>
+                </div>
+            </div>
+
+            <!-- Minimap (Haut Droit) -->
+            <div class="hud-minimap liquid-glass">
+                <div class="hud-minimap-dot"></div>
+                <div class="hud-minimap-label">NCPD<br>RADAR</div>
+            </div>
+
+            <!-- Arme / Munitions (Bas Droit) -->
+            <div class="hud-weapon-panel liquid-glass">
+                <div id="hud-weapon-name" class="hud-weapon-name">UNARMED</div>
+                <div id="hud-ammo" class="hud-ammo">-- / --</div>
+            </div>
+
+            <!-- Viseur central -->
+            <div class="hud-crosshair">
+                <div class="hud-crosshair-dot"></div>
+                <div class="hud-crosshair-ring"></div>
+            </div>
+
+            <!-- Niveau Recherché (Bas Centre) -->
+            <div id="hud-wanted" class="hud-wanted hidden">
+                <span class="hud-wanted-label">WANTED</span>
+                <div id="hud-stars" class="hud-stars"></div>
+            </div>
+
+        </div><!-- /hud-container -->
+
+    </div><!-- /ui-layer -->
+
+    <!-- Module principal du jeu — Vite le résoudra depuis node_modules -->
     <script type="module" src="/src/main.js"></script>
+
 </body>
 
 </html>
