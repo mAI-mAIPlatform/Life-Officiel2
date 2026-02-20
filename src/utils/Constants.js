@@ -286,7 +286,7 @@ export const SaveConfig = {
 };
 
 export const DebugConfig = {
-    ENABLED: process.env.NODE_ENV === 'development',
+    ENABLED: import.meta.env.DEV,
     SHOW_FPS: true,
     SHOW_PHYSICS_COLLIDERS: false,
     SHOW_AI_PATHS: false,
