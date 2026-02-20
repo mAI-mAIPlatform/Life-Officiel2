@@ -9,6 +9,7 @@ import { CameraSystem } from './core/CameraManager.js';
 import { SaveSystem } from './core/SaveSystem.js';
 
 import { UIManager } from './ui/UIManager.js';
+import { HUDOverlay } from './ui/HUD.js';
 import { Events } from './utils/Events.js';
 import { Logger } from './utils/Logger.js';
 
@@ -73,6 +74,7 @@ class GameCore {
             this._setProgress(60, "Initialisation de l'interface...");
             await this._delay(30);
             UIManager.init();
+            HUDOverlay.init();
 
             // ──── ÉTAPE 5 : World & Entités ──────────────────────────────
             this._setProgress(72, 'Génération du monde...');
@@ -126,9 +128,13 @@ class GameCore {
         } catch (error) {
             Logger.fatal('LIFE', 'Erreur critique lors du boot', error);
             this._setProgress(0, `❌ Erreur : ${error.message}`);
-            // Affiche l'erreur dans l'UI et masque quand même le boot screen après 5s
-            await this._delay(5000);
-            this._hideBootScreen();
+            // On NE MASQUE PLUS le boot screen en cas d'erreur
+            // pour que le joueur puisse lire le message d'erreur rouge !
+            const progressFill = document.getElementById('boot-progress-fill');
+            if (progressFill) progressFill.style.backgroundColor = '#ff0000';
+
+            // On s'assure que le jeu s'arrête
+            if (GameLoop && GameLoop.stop) GameLoop.stop();
         }
     }
 

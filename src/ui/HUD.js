@@ -29,101 +29,31 @@ class HUD {
     }
 
     _buildHTML() {
-        this.container = document.createElement('div');
-        this.container.id = 'hud-container';
-        // Le Pointer-events-none est CRITIQUE. Sinon clic de souris sur l'UI empêche le tir !
-        this.container.className = 'absolute inset-0 w-full h-full pointer-events-none z-10 hidden flex-col justify-between p-6 transition-opacity duration-300';
+        this.container = document.getElementById('hud-container');
+        if (!this.container) {
+            console.error("HUD Container #hud-container introuvable dans index.html !");
+            return;
+        }
 
-        this.container.innerHTML = `
-            <!-- Top Bar: Temps & Wanted Level -->
-            <div class="flex justify-between items-start w-full">
-                <!-- Heure In-Game -->
-                <div class="glass-panel px-4 py-2 flex items-center gap-3 backdrop-blur-md">
-                    <div class="w-2 h-2 rounded-full bg-neo-cyan animate-pulse shadow-[0_0_8px_#00f3ff]"></div>
-                    <span id="hud-time" class="font-mono text-xl font-bold tracking-widest text-white">08:00</span>
-                    <span id="hud-day" class="font-mono text-xs text-white/50 ml-2">DAY 1</span>
-                </div>
-                
-                <!-- Wanted Level (NCPD) -->
-                <div id="hud-wanted" class="flex gap-1 opacity-0 transition-opacity">
-                    <!-- Généré dynamiquement: Etoiles -->
-                </div>
-            </div>
-
-            <!-- Bottom Bar: Status Joueur & Armes -->
-            <div class="flex justify-between items-end w-full pb-4">
-                
-                <!-- Stats Joueur (Glassmorphism) -->
-                <div class="glass-panel p-4 flex flex-col gap-3 min-w-[250px] relative overflow-hidden backdrop-blur-md border-l-4 border-l-neo-pink">
-                    <!-- Scanline Déco -->
-                    <div class="absolute inset-0 scanline opacity-20"></div>
-                    
-                    <!-- Santé -->
-                    <div class="w-full relative z-10">
-                        <div class="flex justify-between text-xs font-mono font-semibold mb-1">
-                            <span class="text-white/80">HP</span>
-                            <span id="hud-hp-text" class="text-neo-pink">100/100</span>
-                        </div>
-                        <div class="h-2 w-full bg-black/50 rounded-full overflow-hidden border border-white/5">
-                            <div id="hud-hp-bar" class="h-full bg-neo-pink shadow-neon-pink w-full transition-all duration-300 ease-out"></div>
-                        </div>
-                    </div>
-
-                    <!-- Endurance -->
-                    <div class="w-full relative z-10">
-                        <div class="flex justify-between text-xs font-mono font-semibold mb-1">
-                            <span class="text-white/80">STM</span>
-                        </div>
-                        <div class="h-1.5 w-full bg-black/50 rounded-full overflow-hidden border border-white/5">
-                            <div id="hud-stm-bar" class="h-full bg-neo-cyan shadow-neon-cyan w-full transition-all duration-100 ease-linear"></div>
-                        </div>
-                    </div>
-                    
-                    <!-- EuroDollars (Argent) -->
-                    <div class="mt-2 flex items-center gap-2 font-mono z-10">
-                        <span class="text-green-400 font-bold">€$</span>
-                        <span id="hud-money" class="text-xl tracking-wider text-white">0</span>
-                    </div>
-                </div>
-
-                <!-- Arme Actuelle & Ammo -->
-                <div class="glass-panel p-4 flex items-end gap-6 backdrop-blur-md opacity-0 transition-opacity duration-300" id="hud-weapon-container">
-                    <div class="flex flex-col items-end">
-                        <span id="hud-weapon-name" class="font-sans font-bold text-sm text-white/70 uppercase tracking-widest mb-1">Vindicator 9mm</span>
-                        <div class="font-mono text-3xl font-black text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
-                            <span id="hud-ammo-clip">12</span>
-                            <span class="text-white/30 text-xl mx-1">/</span>
-                            <span id="hud-ammo-total" class="text-white/50 text-xl">48</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Crosshair (Réticule) Central -->
-            <div id="hud-crosshair" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center opacity-50 transition-transform hidden">
-                 <div class="w-1 h-1 bg-white rounded-full"></div>
-                 <div class="absolute w-6 h-[1px] bg-white/50 left-[5px]"></div>
-                 <div class="absolute w-6 h-[1px] bg-white/50 right-[5px]"></div>
-                 <div class="absolute h-6 w-[1px] bg-white/50 top-[5px]"></div>
-                 <div class="absolute h-6 w-[1px] bg-white/50 bottom-[5px]"></div>
-            </div>
-        `;
-
-        document.getElementById('ui-layer').appendChild(this.container);
-
-        // Mise en cache
+        // Mise en cache des éléments CSS Pur (Liquid Glass)
         this.elHealthBar = document.getElementById('hud-hp-bar');
-        this.elHealthText = document.getElementById('hud-hp-text');
-        this.elStaminaBar = document.getElementById('hud-stm-bar');
+        this.elHealthText = document.getElementById('hud-hp');
+        this.elStaminaBar = document.getElementById('hud-sta-bar');
         this.elMoney = document.getElementById('hud-money');
+
+        // Eléments potentiellement absents du nouveau HTML de base (on les gérera sans crash s'ils n'existent pas)
         this.elTime = document.getElementById('hud-time');
         this.elDay = document.getElementById('hud-day');
 
-        this.elWeaponCont = document.getElementById('hud-weapon-container');
+        this.elWeaponCont = document.querySelector('.hud-weapon-panel');
         this.elWeaponName = document.getElementById('hud-weapon-name');
-        this.elAmmoClip = document.getElementById('hud-ammo-clip');
-        this.elAmmoTotal = document.getElementById('hud-ammo-total');
-        this.elCrosshair = document.getElementById('hud-crosshair');
+
+        // Modification: la nouvelle UI n'a qu'un span #hud-ammo pour tout
+        this.elAmmo = document.getElementById('hud-ammo');
+
+        this.elCrosshair = document.querySelector('.hud-crosshair');
+        this.elWanted = document.getElementById('hud-wanted');
+        this.elWantedStars = document.getElementById('hud-stars');
     }
 
     _setupListeners() {
